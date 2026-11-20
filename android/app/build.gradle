@@ -1,0 +1,24 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'lk.padikkalam.study'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'lk.padikkalam.study'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+    }
+    if (System.getenv('PADIKKALAM_KEYSTORE')) {
+        signingConfigs {
+            release {
+                storeFile file(System.getenv('PADIKKALAM_KEYSTORE'))
+                storePassword System.getenv('ANDROID_KEYSTORE_PASSWORD')
+                keyAlias 'padikkalam'
+                keyPassword System.getenv('ANDROID_KEYSTORE_PASSWORD')
+            }
+        }
+        buildTypes.release.signingConfig = signingConfigs.release
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
